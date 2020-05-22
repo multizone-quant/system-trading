@@ -13,7 +13,9 @@
 # pip install urllib.request
 # pip install BeautifulSoup
 #
-
+# 보다 자세한 내용을 아래 tstory 참고
+# https://money-expert.tistory.com/6
+#
 
 import time
 import urllib.request
