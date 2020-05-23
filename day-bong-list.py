@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+# date : 2020/05/23
 # 현재 상장된 모든 종목의 일봉 정보를 json 파일로 저장
 # naver 아래 사이트의 정보를 크롤링하여 저장
 # https://finance.naver.com/sise/sise_market_sum.nhn
