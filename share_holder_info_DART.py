@@ -1,4 +1,4 @@
-# date : 2020/05/234
+# date : 2020/05/24
 # Dart Open API를 이용하여 대주주 지분 변경 실시간으로 검색하기
 #
 # pip install requests
