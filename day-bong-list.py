@@ -3,10 +3,9 @@
 # 현재 상장된 모든 종목의 일봉 정보를 json 파일로 저장
 # naver 아래 사이트의 정보를 크롤링하여 저장
 # https://finance.naver.com/sise/sise_market_sum.nhn
-# 단 아래 항목을 선택하여야 정상 동작함
-#   거래량, 시가, 고가, 저가, per, poe
-# 필요한 경우에 위 항목을 변경할 수 있음. 코드 상에서 title에서 변경한 항목 반영 필요함
 #
+# 항목변경이 안됨 초기 상태 그래도 저장
+# 
 # 종목이 많아서 page로 구성되어 있음. 마지막에 page 번호를 증가시키면서 계속 검색함
 # https://finance.naver.com/sise/sise_market_sum.nhn?&page=1
 # https://finance.naver.com/sise/sise_market_sum.nhn?&page=2
@@ -41,13 +40,27 @@ TODAY = time.strftime("%Y%m%d")
 
 # 특정 url에 있는 정보를 뽑아냄 
 def get_stock_list(url, cnt) :
-    title_list = ['no', 'name', 'close', 'diff', 'per', 'base_p', 'qty', 'open', 'high', 'low', 'per', 'pbr', 'talk']
+    title_list = []
     with urllib.request.urlopen(url) as fs :
         soup = BeautifulSoup(fs.read().decode(fs.headers.get_content_charset()), 'html.parser')
 
     prices =[]
+    got_title = 0
+
     # 각 데이터는 tr로 시작
     for tr in soup.find_all('tr') :
+        # title은 th로 시작
+        if got_title == 0 :
+            th_list = tr.find_all('th')
+            if th_list != [] :
+                if th_list[0].text.strip() == 'N' :
+                    info = {}
+                    for i in range(0,len(th_list)) :
+                        data = th_list[i].text.strip()
+                        title_list.append(data)
+                        print(i, data )
+                    print('')
+                got_title = 1
         # 각 항목은 td로 시작
         td_list = tr.find_all('td')
         try : 
