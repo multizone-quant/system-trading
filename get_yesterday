@@ -1,0 +1,22 @@
+# -*- coding: utf-8 -*-
+# get yesterday based on stock market operation 
+# the yesterday at Monday is Friday, if the market opened
+# todo : considering holiday and other special day which the market did not open
+
+import time
+
+def get_yesterday() :
+    # cur time 현재 시각
+    t = time.time()
+    lt = time.localtime(t)
+    diff = 60*60*24 # a day before 하루 전
+    if lt.tm_wday == 0 : # Monday, 월요일
+        diff *= 2
+    yst = time.localtime(t-diff)
+    print(yst)
+    return str(yst.tm_year)+str('%02d'%yst.tm_mon)+str('%02d'%yst.tm_mday)
+
+
+ret = get_yesterday()
+print (ret)
+print('')
