@@ -1,0 +1,30 @@
+import sys, time, msvcrt
+#
+# 일정 시간이 지나면 자동으로 default 값이 입력으로 들어온 것으로 간주하고 return됨
+# get default input after limited secs.
+#
+def readInput(caption, default, timeout = 5):
+    if caption != '' :
+        print (caption)
+    start_time = time.time()
+    input = ''
+    while True:
+        if msvcrt.kbhit():
+            byte_arr = msvcrt.getche()
+            if ord(byte_arr) == 13: # enter_key
+                break
+            elif ord(byte_arr) >= 32: #space_char
+                input += "".join(map(chr,byte_arr))
+        if len(input) == 0 and (time.time() - start_time) > timeout:
+#           print("timing out, using default value.")
+            break
+
+#    print('')  # needed to move to next line
+    if len(input) > 0:
+        return input
+    else:
+        return default
+
+ret = readInput("testing limited waiting(3sec) input", 'no input', 3 )
+print ("input is ", ret)
+print('end')
