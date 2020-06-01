@@ -15,7 +15,8 @@ def readInput(caption, default, timeout = 5):
                 break
             elif ord(byte_arr) >= 32: #space_char
                 input += "".join(map(chr,byte_arr))
-        if len(input) == 0 and (time.time() - start_time) > timeout:
+        # change and to or. if there is an input or timeout
+        if len(input) == 0 or (time.time() - start_time) > timeout:
 #           print("timing out, using default value.")
             break
 
