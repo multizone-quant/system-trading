@@ -1,0 +1,180 @@
+# -*- coding: utf-8 -*-
+# date : 2020/06/04
+#
+# 관리종목 등 매매에서 제외할 종목을 얻는다.
+#
+# naver 아래 사이트의 정보를 크롤링하여 저장
+# 'https://finance.naver.com/sise/trading_halt.nhn'
+# 'https://finance.naver.com/sise/management.nhn'
+#
+# 실행결과
+#   거래정지종목 : warning1_list.txt.txt
+#   관리종목     : warning2_list.txt.txt
+#
+# pip install urllib.request
+# pip install BeautifulSoup
+#
+# 보다 자세한 내용을 아래 tstory 참고
+# https://money-expert.tistory.com/
+
+import time
+import requests
+from bs4 import BeautifulSoup
+import json
+import urllib.request
+
+TODAY = time.strftime("%Y%m%d")
+
+def load_json_from_file(file_name) :
+    try :
+        with open(file_name,'r',encoding="cp949") as make_file: 
+           data=json.load(make_file) 
+        make_file.close()
+    except  Exception as e : # 또는 except : 
+        data = {}
+        print(e, file_name)
+    return data
+
+def save_to_file_json(file_name, data) :
+    with open(file_name,'w',encoding="cp949") as make_file: 
+       json.dump(data, make_file, ensure_ascii=False, indent="\t") 
+    make_file.close()
+import operator
+
+def save_to_file_csv(file_name, data) :
+    if 0:
+        dd = load_json_from_file('20200522_kosdaq_up_list.txt')
+        for dt in data:
+            vals = dt.values()
+            ss = ''
+            for val in vals:
+                val = val.replace(',','',4)
+                ss += (val + ',')
+            print(ss)
+
+    with open(file_name,'w',encoding="cp949") as make_file: 
+        # title 저장
+        vals = data[0].keys()
+        ss = ''
+        for val in vals:
+            val = val.replace(',','')
+            ss += (val + ',')
+        ss += '\n'
+        make_file.write(ss)
+
+        for dt in data:
+            vals = dt.values()
+            ss = ''
+            for val in vals:
+                val = val.replace(',','')
+                ss += (val + ',')
+            ss += '\n'
+            make_file.write(ss)
+    make_file.close()
+
+TODAY = time.strftime("%Y%m%d")
+
+def get_code_by_name(codes, data) :
+    for cd in codes :
+        if cd['name'] == data :
+            return cd['code']
+    return ''
+
+#https://finance.naver.com/sise/trading_halt.nhn
+def warning_stocks(name, url, kospi, kosdaq) :
+    with urllib.request.urlopen(url) as fs :
+        soup = BeautifulSoup(fs.read().decode(fs.headers.get_content_charset()), 'html.parser')
+
+    cnt = 1
+    prices =[]
+    title_list = []
+    got_title = 0
+    for tr in soup.find_all('tr') :
+        if got_title == 0 :
+            th_list = tr.find_all('th')
+            if th_list != [] :
+                if th_list[1].text.strip() == '종목명' :
+                    info = {}
+                    for i in range(0,len(th_list)) :
+                        data = th_list[i].text.strip()
+                        if data == '' :
+                            data = 'N'
+                        data = data.replace('\n','')
+                        title_list.append(data)
+                        print(i, data )
+                    print('')
+                    got_title = 1
+
+        td_list = tr.find_all('td')
+        try : 
+            if int(td_list[0].text.strip()) == cnt :
+                info = {}
+                for i in range(0,len(td_list)) :
+                    data = td_list[i].text.strip()
+                    data = data.replace('\n','')
+                    info[title_list[i]] = data
+                    if title_list[i] == '종목명' :
+                        cd = get_code_by_name(kospi, data)
+                        if cd != '' :
+                            info['code'] = cd
+                        else :
+                            cd = get_code_by_name(kosdaq, data)
+                            if cd != '' :
+                                info['code'] = cd
+                            else :
+                                info['code'] = 'unknown'
+                prices.append(info)
+                cnt+=1
+        except :
+            continue
+    if prices != [] :
+        fname = name + '_list.txt'
+        save_to_file_json(fname, prices)
+
+        fname = name + '_list.csv'
+        save_to_file_csv(fname, prices)
+        print('done ')
+    else :
+        print('fail to get data')
+
+def load_codes(market) :
+    fname = '.\\data\\'+market + '_codes.txt'
+    codes = load_json_from_file(fname)
+    return codes
+
+def get_warning_list(fname) :
+    data = load_json_from_file(fname)
+    codes = []
+    for dt in data:
+        code = dt['code']
+        if code == 'unknown' :
+            continue
+        codes.append(code)
+    return codes
+
+kosdaq_codes = load_codes('kosdaq')
+kospi_codes = load_codes('kospi')
+int_date = TODAY
+
+if 0 :
+    url = 'https://finance.naver.com/sise/trading_halt.nhn'
+    fname = 'warning1'
+    warning_stocks(fname, url, kospi_codes, kosdaq_codes)
+    url = 'https://finance.naver.com/sise/management.nhn'
+    fname = 'warning2'
+    warning_stocks(fname, url, kospi_codes, kosdaq_codes)
+
+print('for test')
+
+
+if 1 :  # for test
+    fname = 'warning1_list.txt'
+    data = get_warning_list(fname)
+    print('--- %s ---'%fname)
+    print(data)
+    fname = 'warning2_list.txt'
+    data = get_warning_list(fname)
+    print('\n--- %s ---'%fname)
+    print(data)
+    print('')
+print("end")
