@@ -125,8 +125,7 @@ def get_info_with_code(each, code) :
 
 def merge_single_day_bong_file(ddir) :
     # 대상 stock 정보
-    tdate = '20200623'
-    fname = '..\\data\\'+tdate+'_KOSPI_day_bong_list.txt'    
+    fname = '..\\data\\kospi_codes.txt'    # kospi 코드 정보
 
     targets = load_json_from_file(fname) 
     if targets == {} :
@@ -138,7 +137,7 @@ def merge_single_day_bong_file(ddir) :
     for t in targets :
         if t['code'] == '' : # code가 blank임  오류
             continue
-        fname = ddir + t['code']  + '_20200619_day_bong.txt' 
+        fname = ddir + t['code']  + '_20200619_day_bong.txt'  # 종목별 일봉 데이터가 저장된 파일명
         history = load_json_from_file(fname) 
         if history == {} :
             continue
@@ -165,6 +164,7 @@ def merge_single_day_bong_file(ddir) :
         if len(day_hist) > 0 :
             fname = '..\\db1\\'+str(i)+'_KOSPI_day_history_list.txt'
             save_to_file_json(fname, day_hist)
+            # csv 포맷 파일이 필요한 경우에 사용
 #            fname = '..\\db1\\'+str(i)+'_KOSPI_day_history_list.csv'
 #            save_to_file_csv(fname, day_hist)
 
