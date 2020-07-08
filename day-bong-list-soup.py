@@ -14,7 +14,7 @@
 # 코스닥 상승 종목 : 날짜_kosdaq_day_bong_list.txt
 # 코스피 상승 종목 : 날짜_kospi_day_bong_list.txt
 #
-# 관련 설명 : 
+# 관련 설명 : https://money-expert.tistory.com/16
 
 import time
 import urllib.request
