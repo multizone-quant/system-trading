@@ -142,7 +142,6 @@ def day_bong_list(name) :
             print('click next')
             driver.find_element_by_link_text('다음').click()
             time.sleep(3)
-        input()
     # 저장
     fname = TODAY+'_'+name+'_day_bong_list.txt'
     save_to_file_json(fname, prices)
