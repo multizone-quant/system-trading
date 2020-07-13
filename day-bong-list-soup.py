@@ -129,8 +129,13 @@ def day_bong_list(name) :
     for i in range(1, sise_page_list[name]+1) :
         print('page ', i)
         # 해당 페이지 클릭
-        driver.find_element_by_link_text(str(i)).click()
-        time.sleep(3)
+        try :
+            driver.find_element_by_link_text(str(i)).click()
+            time.sleep(3)
+        except Exception as e:
+            # 해당하는 페이지가 없다. 끝까지 간 경우
+            print('end of page')
+            break
         
         # 특정 page를 클릭한 후 로딩될 동안 잠시 기다린다.
         soup = BeautifulSoup(driver.page_source, 'html.parser', from_encoding='utf-8')
