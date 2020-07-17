@@ -1,7 +1,7 @@
 # 2020/07/17
 # telegram-bot 만드는 간단한 예제
 # xing-api와 연동하는 예제는 다음 주 올릴 예정임
-# 자세한 설명 : 
+# 자세한 설명 : https://money-expert.tistory.com/19
 
 import telegram
 from telegram.ext import Updater, MessageHandler, Filters, CommandHandler  
