@@ -1,8 +1,11 @@
 #!/d/sysutils/conda/python
 # 2020/07/22
+#
 # pip install --upgrade mpl_finance
 # new version
 # pip install --upgrade mplfinance
+#
+# download data.csv as well
 
 import matplotlib.pyplot as plt
 from mpl_finance import candlestick_ohlc
