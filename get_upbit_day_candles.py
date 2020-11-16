@@ -7,7 +7,7 @@
 #   coin-name_day3.csv
 #
 # 보다 자세한 내용을 아래 tstory 참고
-# https://money-expert.tistory.com/
+# https://money-expert.tistory.com/33
 #
 
 import requests
@@ -75,26 +75,6 @@ def get_coin_history_day(coin, count=400, to=None) :
         url += ('&to='+to)
     ret = request_get(url)
     return ret
-if 0 :
-    coin = 'KRW-STEEM'
-    ret = get_coin_history_day(coin, count=400)
-    if ret != None :
-        fname = coin+'_day1.csv'
-        save_to_file_csv(fname, ret)
-
-    to = '2019-10-20 09:00:00'
-    ret = get_coin_history_day(coin, count=400, to=to)
-    if ret != None :
-        fname = coin+'_day2.csv'
-        save_to_file_csv(fname, ret)
-
-    to = '2018-09-20 09:00:00'
-    ret = get_coin_history_day(coin, count=400, to=to)
-    if ret != None :
-        fname = coin+'_day3.csv'
-        save_to_file_csv(fname, ret)
-
-    print('')
 
 if __name__ == '__main__':
 
