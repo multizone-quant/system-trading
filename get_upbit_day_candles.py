@@ -6,7 +6,7 @@
 #   coin-name_day2.csv
 #   coin-name_day3.csv
 #
-# 보다 자세한 내용을 아래 tstory 참고
+# 보다 자세한 내용을 아래 tistory 참고
 # https://money-expert.tistory.com/33
 #
 
