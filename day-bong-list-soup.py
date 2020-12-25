@@ -118,7 +118,7 @@ def day_bong_list(name) :
     sise_list = {'kospi':url1, 'kosdaq':url2}
 
     # 총 페이지수, 상장 종목이 늘어나면 증가할 수 있음
-    sise_page_list = {'kospi':32, 'kosdaq':29}
+    sise_page_list = {'kospi':32, 'kosdaq':30}
 
     # 네이버 시총 페이지 설정 변경
     print('open naver ', sise_list[name])
