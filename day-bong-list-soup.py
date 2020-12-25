@@ -14,7 +14,7 @@
 # 코스닥 상승 종목 : 날짜_kosdaq_day_bong_list.txt
 # 코스피 상승 종목 : 날짜_kospi_day_bong_list.txt
 #
-# 관련 설명 : https://money-expert.tistory.com/16
+# 관련 설명 : https://money-expert.tistory.com/7
 
 import time
 import urllib.request
@@ -86,14 +86,14 @@ def get_stock_list_soup(soup, cnt) :
                     for i in range(0,len(th_list)) :
                         data = th_list[i].text.strip()
                         title_list.append(data)
-                        print(i, data )
-                    print('')
+#                        print(i, data )
+#                    print('')
                 got_title = 1
         # 각 항목은 td로 시작
         td_list = tr.find_all('td')
         try : 
             no = td_list[0].text.strip()
-            print(no)
+ #           print(no)
             if no[0] == '\n' :
                 no = no.replace('\n','')
             # 빈줄, 라인 등 데이터가 아닌 경우도 있다.
@@ -144,7 +144,7 @@ def day_bong_list(name) :
 
         # 10 page 단위로 보임, 11, 21, 31페이지를 위해서는 '다음' 버튼 클릭
         if (i % 10) == 0 : # 다음 page 클릭
-            print('click next')
+            #print('click next')
             driver.find_element_by_link_text('다음').click()
             time.sleep(3)
     # 저장
