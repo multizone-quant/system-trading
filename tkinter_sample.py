@@ -9,7 +9,7 @@
 import tkinter as tk
 import tkinter.ttk as ttk
 
-def create_table(window, x, y, row, col, heads, widths, width=0, background='#EBECF0') :
+def create_table(window, x, y, row, col, heads, widths, width=0) :
     treeview=ttk.Treeview(window, columns=heads, height=row)
     if width == 0 : 
         treeview.place(x=x, y=y)
@@ -63,7 +63,7 @@ if __name__ == "__main__":
     col = 9
 
     create_label(window, 10, 50, '양매도', width=10) #window, x, y, text='', width = 200,
-    tr_view = create_table(window, 10, 70, row, col, heads, widths, background='#D3D3D3') # gray
+    tr_view = create_table(window, 10, 70, row, col, heads, widths)
 
     # 출력하고자 하는 값    
     val = [312, 2.0, 1.2, 312, 1.0, 1.5, 1.0, 0.1, 10000]
