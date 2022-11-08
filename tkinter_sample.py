@@ -4,7 +4,7 @@
 # https://github.com/multizone-quant/system-trading/blob/master/tkinter_sample.py
 
 # requirements
-# pip install pkinter
+# pip install tk
 
 import tkinter as tk
 import tkinter.ttk as ttk
