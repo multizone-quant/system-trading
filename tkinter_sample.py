@@ -1,7 +1,7 @@
 # https://cosmosproject.tistory.com/m/610
 # https://pythonguides.com/python-tkinter-treeview/
 
-# https://github.com/multizone-quant/system-trading/tkinter_sample.py
+# https://github.com/multizone-quant/system-trading/blob/master/tkinter_sample.py
 
 # requirements
 # pip install pkinter
