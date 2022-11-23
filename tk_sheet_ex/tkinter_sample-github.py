@@ -15,7 +15,7 @@
 # pip install tk
 # pip install tksheet
 
-# https://github.com/multizone-quant/system-trading/blob/master/tkinter_sample.py
+# https://github.com/multizone-quant/system-trading/blob/master/tk_sheet_ex/tkinter_sample-github.py
 
 import tkinter as tk
 import tkinter.ttk as ttk
